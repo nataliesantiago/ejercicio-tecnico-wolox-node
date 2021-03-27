@@ -14,7 +14,7 @@ const coinApi = require('./api/coin-api');
 
 let checkTokenMiddleware = new CheckToken();
 
-dotenv.config({ path: 'env/.env' });
+dotenv.config({ path: 'env/.env.dev' });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
