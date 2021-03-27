@@ -53,7 +53,7 @@
                     {
                         "name": "user",
                         "in": "body",
-                        "description": "Usuario a crear",
+                        "description": "Usuario a crear, en el parametro preferred_currency solo se permite alguno de los siguientes valores: eur, usd o ars correspondientes al Euro, Dolar o Peso Argentino",
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
@@ -79,7 +79,7 @@
                     {
                         "name": "login",
                         "in": "body",
-                        "description": "Usuario y contraseña",
+                        "description": "Para realizar el login se debe ingresar el nombre de usuario y contraseña",
                         "schema": {
                             "$ref": "#/definitions/Login"
                         }
@@ -87,7 +87,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Usuario logeado",
+                        "description": "Usuario logeado, retorna el token necesario para realizar las démas peticiones",
                         "schema": {
                             "$ref": "#/definitions/loginResponse"
                         }
@@ -97,7 +97,7 @@
         },
         "/coins/coins-list": {
             "get": {
-                "summary": "Listar Coins disponibles",
+                "summary": "Listar Coins disponibles, tener en cuenta que para consumir este servicio es necesario agregar el token generado del servicio de login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio",
                 "tags": [
                     "Coins"
                 ],
@@ -110,7 +110,7 @@
                     {
                         "name": "page",
                         "in": "query",
-                        "description": "pagina a traer",
+                        "description": "Número de página",
                         "type": "number"
                     }
                 ],

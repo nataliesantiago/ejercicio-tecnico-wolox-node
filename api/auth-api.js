@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const UserController = require('./../controllers/user-controller');
 const secret = require('./../config/secret');
+const { mapErrors } = require('../utils/errorModel');
 
 const route = express.Router();
 let userController = new UserController();
@@ -16,9 +17,11 @@ route.post('/register', async (req, res) => {
             user
         });
     } catch (error) {
+        let errors = mapErrors(error);
         res.status(400).json({
             success: false,
-            message: 'No se pudo crear el usuario'
+            message: "No se pudo crear el usuario",
+            errors
         });
     }
 });
