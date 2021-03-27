@@ -34,6 +34,11 @@ morgan.token('detailed', function (req, res, param) {
     return JSON.stringify(req.body);
 });  
 
+app.use((req, res, next) => {
+    res.set('Cache-Control', 'no-store')
+    next()
+});
+
 // register logging middleware and use custom logging format
 app.use(morgan('method :url :status :res[content-length] - :response-time ms :detailed'));
 

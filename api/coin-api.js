@@ -15,4 +15,27 @@ route.get('/coins-list', async (req, res) => {
     }
 });
 
+route.post('/add-coin', async (req, res) => {
+    try {
+        const user = req.user.user;
+        const coinId = req.body.coin_id;
+        const coins = await coinController.saveCoinByUser(user._id, coinId);
+        console.log(coins);
+        if (coins !== null) {
+            res.status(200).json({
+                success: true,
+                message: 'Criptomoneda agregada con éxito'
+            });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: 'La criptomoneda no existe'
+            });
+        }
+    } catch (error) {
+        console.log('err', error);
+        res.status(400)
+    }
+});
+
 module.exports = route;

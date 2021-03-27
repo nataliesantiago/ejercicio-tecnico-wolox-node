@@ -23,7 +23,10 @@ let UserSchema = Schema({
     preferred_currency: {
         required: true,
         type: String
-    }
+    },
+    coins: [{
+        type: String
+    }]
 });
 
 UserSchema.pre('save', async function () {
