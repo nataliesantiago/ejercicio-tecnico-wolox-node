@@ -14,4 +14,16 @@ route.get('/user', async (req, res) => {
     }
 });
 
+route.get('/list-top-coins', async (req, res) => {
+    try {
+        const user = req.user.user;
+        const nTop = req.query.top;
+        const order = req.query.order;
+        const listTop = await userController.getTopCoins(user, nTop, order);
+        res.status(200).json(listTop);
+    } catch (error) {
+        res.status(400)
+    }
+});
+
 module.exports = route;

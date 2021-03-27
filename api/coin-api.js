@@ -20,7 +20,6 @@ route.post('/add-coin', async (req, res) => {
         const user = req.user.user;
         const coinId = req.body.coin_id;
         const coins = await coinController.saveCoinByUser(user._id, coinId);
-        console.log(coins);
         if (coins !== null) {
             res.status(200).json({
                 success: true,
