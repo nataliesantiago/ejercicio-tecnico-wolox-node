@@ -13,7 +13,7 @@ class CheckToken {
             }
             jwt.verify(token, config.secret, (err, decoded) => {
                 if (err) {
-                    return res.status(301).json({
+                    return res.status(400).json({
                         success: false,
                         message: 'Token no valido'
                     });
@@ -23,7 +23,7 @@ class CheckToken {
                 }
             });
         } else {
-            return res.status(301).json({
+            return res.status(400).json({
                 success: false,
                 message: 'Token no proporcionado'
             });

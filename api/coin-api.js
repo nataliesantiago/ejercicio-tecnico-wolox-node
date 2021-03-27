@@ -9,9 +9,15 @@ route.get('/coins-list', async (req, res) => {
         const user = req.user.user;
         const page = req.query.page;
         const coins = await coinController.getCoinsList(user.preferred_currency, page);
-        res.status(200).json(coins);
+        res.status(200).json({
+            success: true,
+            coins
+        });
     } catch (error) {
-        res.status(400)
+        res.status(400).json({
+            success: false,
+            message: 'No fue posible realizar la operacón'
+        });
     }
 });
 
@@ -33,7 +39,10 @@ route.post('/add-coin', async (req, res) => {
         }
     } catch (error) {
         console.log('err', error);
-        res.status(400)
+        res.status(400).json({
+            success: false,
+            message: 'No fue posible realizar la operacón'
+        });
     }
 });
 

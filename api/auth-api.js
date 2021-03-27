@@ -16,7 +16,10 @@ route.post('/register', async (req, res) => {
             user
         });
     } catch (error) {
-        res.status(400).json();
+        res.status(400).json({
+            success: false,
+            message: 'No se pudo crear el usuario'
+        });
     }
 });
 
