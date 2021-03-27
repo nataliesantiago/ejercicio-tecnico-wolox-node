@@ -1,14 +1,15 @@
 const axios = require('axios');
 
-class CryptoController {
+class CoinController {
 
     constructor() { }
 
-    async getCryptoList() {
+    async getCoinsList(currency, page) {
         try {
-            axios.get(`${process.env.URL_CRYPTO_API}/coins/markets`, {
+            axios.get(`${process.env.URL_COINS_API}/coins/markets`, {
                 params: {
-                    vs_currency: 'eur' 
+                    vs_currency: currency,
+                    page
                 }
             }).then((result) => {
                 console.log('res', result);
@@ -22,4 +23,4 @@ class CryptoController {
 
 }
 
-module.exports = CryptoController;
+module.exports = CoinController;

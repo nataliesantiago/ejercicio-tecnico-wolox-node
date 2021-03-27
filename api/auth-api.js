@@ -10,7 +10,11 @@ route.post('/register', async (req, res) => {
     const userDto = req.body;
     try {
         const user = await userController.saveUser(userDto);
-        res.status(200).json(user);
+        res.status(200).json({
+            success: true,
+            message: "Usuario creado con éxito",
+            user
+        });
     } catch (error) {
         res.status(400).json();
     }

@@ -5,9 +5,16 @@ const morgan = require('morgan');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
+const dotenv = require('dotenv');
 const connection = require('./config/connection');
-const userApi = require('./api/user-api');
+const CheckToken = require('./middlewares/check-token');
 const authApi = require('./api/auth-api');
+const userApi = require('./api/user-api');
+const coinApi = require('./api/coin-api');
+
+let checkTokenMiddleware = new CheckToken();
+
+dotenv.config({ path: 'env/.env' });
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,8 +37,12 @@ morgan.token('detailed', function (req, res, param) {
 // register logging middleware and use custom logging format
 app.use(morgan('method :url :status :res[content-length] - :response-time ms :detailed'));
 
+// middelware
+app.use(/^\/api\/(?!auth*).*/, checkTokenMiddleware.checkToken);
+
 app.use('/api/auth', authApi);
 app.use('/api/users', userApi);
+app.use('/api/coins', coinApi);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
