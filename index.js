@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const connection = require('./config/connection');
 const userApi = require('./api/user-api');
+const authApi = require('./api/auth-api');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -29,6 +30,7 @@ morgan.token('detailed', function (req, res, param) {
 // register logging middleware and use custom logging format
 app.use(morgan('method :url :status :res[content-length] - :response-time ms :detailed'));
 
+app.use('/api/auth', authApi);
 app.use('/api/users', userApi);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
