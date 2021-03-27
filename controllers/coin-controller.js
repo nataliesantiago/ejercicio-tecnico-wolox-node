@@ -6,18 +6,25 @@ class CoinController {
 
     async getCoinsList(currency, page) {
         try {
-            axios.get(`${process.env.URL_COINS_API}/coins/markets`, {
+            const coinsList = await axios.get(`${process.env.URL_COINS_API}/coins/markets`, {
                 params: {
                     vs_currency: currency,
                     page
                 }
-            }).then((result) => {
-                console.log('res', result);
-            }).catch((err) => {
-                console.log('err', err);
             });
+
+            const coinsListFinal = coinsList.data.map(coin => {
+                return {
+                    symbol: coin.symbol,
+                    price: coin.current_price,
+                    name: coin.name,
+                    image: coin.image,
+                    last_updated: coin.last_updated
+                }
+            });
+            return coinsListFinal;
         } catch (error) {
-            console.error(error)
+            return error;
         }
     }
 
