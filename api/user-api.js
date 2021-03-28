@@ -27,10 +27,17 @@ route.get('/list-top-coins', async (req, res) => {
         const order = req.query.order;
         if (nTop <= 25) {
             const listTop = await userController.getTopCoins(user, nTop, order);
-            res.status(200).json({
-                success: true,
-                coins: listTop
-            });
+            if (listTop !== null) {
+                res.status(200).json({
+                    success: true,
+                    coins: listTop
+                });
+            } else {
+                res.status(400).json({
+                    success: false,
+                    message: 'El usuario no tiene criptomonedas relacionadas'
+                });
+            }
         } else {
             res.status(400).json({
                 success: false,

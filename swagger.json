@@ -14,15 +14,15 @@
     "tags": [
         {
             "name": "Login-Register",
-            "description": "Operaciones basicas"
-        },
-        {
-            "name": "Users",
-            "description": "Administrador de usuarios"
+            "description": "Operaciones basicas de registro y login"
         },
         {
             "name": "Coins",
-            "description": ""
+            "description": "Criptomonedas, tener en cuenta que para consumir estos servicio es necesario agregar el token generado del servicio de login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio"
+        },
+        {
+            "name": "Users",
+            "description": "Administrador de usuarios, ener en cuenta que para consumir estos servicio es necesario agregar el token generado del servicio de login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio"
         }
     ],
     "schemes": [
@@ -30,7 +30,6 @@
     ],
     "consumes": [
         "application/json"
-
     ],
     "produces": [
         "application/json"
@@ -97,7 +96,7 @@
         },
         "/coins/coins-list": {
             "get": {
-                "summary": "Listar Coins disponibles, tener en cuenta que para consumir este servicio es necesario agregar el token generado del servicio de login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio",
+                "summary": "Listar criptomonedas disponibles",
                 "tags": [
                     "Coins"
                 ],
@@ -116,9 +115,75 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Lista de Coins",
+                        "description": "Lista de criptomonedas",
                         "schema": {
                             "$ref": "#/definitions/coinsResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/coins/add-coin": {
+            "post": {
+                "summary": "Agregar criptomoneda a un usuario",
+                "tags": [
+                    "Coins"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "coin_id",
+                        "in": "body",
+                        "description": "Para agregar una criptomoneda se debe ingresar el id obtenido de la lista de criptomonedas",
+                        "schema": {
+                            "$ref": "#/definitions/addCoin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Criptomoneda agregada",
+                        "schema": {
+                            "$ref": "#/definitions/addCoinResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/list-top-coins": {
+            "get": {
+                "summary": "Listar top N criptomonedas del usuario",
+                "tags": [
+                    "Users"
+                ],
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "top",
+                        "in": "query",
+                        "description": "Número de criptomonedas a mostrar",
+                        "type": "number"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Manera de ordenar la lista de criptomonedas, solo puede ser alguno de los siguientes valores: asc o desc, por defecto se ordena descendentemente",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista top N de criptomonedas",
+                        "schema": {
+                            "$ref": "#/definitions/userListCoinsResponse"
                         }
                     }
                 }
@@ -138,14 +203,14 @@
                 "first_name": {
                     "type": "string"
                 },
-                "last_name":  {
+                "last_name": {
                     "type": "string"
                 },
-                "user_name":  {
+                "user_name": {
                     "type": "string",
                     "uniqueItems": true
                 },
-                "password":  {
+                "password": {
                     "type": "string"
                 },
                 "preferred_currency": {
@@ -159,20 +224,20 @@
                 "password"
             ],
             "properties": {
-                "user_name":  {
+                "user_name": {
                     "type": "string"
                 },
-                "password":  {
+                "password": {
                     "type": "string"
                 }
             }
         },
         "loginResponse": {
             "properties": {
-                "success":  {
+                "success": {
                     "type": "boolean"
                 },
-                "token":  {
+                "token": {
                     "type": "string"
                 },
                 "message": {
@@ -182,10 +247,10 @@
         },
         "registerResponse": {
             "properties": {
-                "success":  {
+                "success": {
                     "type": "boolean"
                 },
-                "user":  {
+                "user": {
                     "$ref": "#/definitions/User"
                 },
                 "message": {
@@ -210,12 +275,75 @@
                 "last_updated": {
                     "type": "string"
                 }
-
             }
         },
         "coinsResponse": {
-            "type": "array",
-            "$ref": "#/definitions/coin"
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "coins": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/coin"
+                    }
+                }
+            }
+        },
+        "addCoin": {
+            "properties": {
+                "coin_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "addCoinResponse": {
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "coinTop": {
+            "properties": {
+                "symbol": {
+                    "type": "string"
+                },
+                "price_usd": {
+                    "type": "number"
+                },
+                "price_ars": {
+                    "type": "number"
+                },
+                "price_eur": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "last_updated": {
+                    "type": "string"
+                }
+            }
+        },
+        "userListCoinsResponse": {
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                },
+                "coins": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/coinTop"
+                    }
+                }
+            }
         }
     }
 }
