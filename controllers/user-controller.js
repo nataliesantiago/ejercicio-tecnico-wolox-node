@@ -5,17 +5,34 @@ class UserController {
 
     constructor() { }
 
+    /**
+     * Funcion para obtener la informacion de un usuario
+     * @param {*} userName
+     * @returns
+     */
     async getUser(userName) {
         const user = await userModel.findOne({ user_name: userName });
         return user;
     }
 
+    /**
+     * Funcion para guardar la informacion de un nuevo usuario
+     * @param {*} userDto
+     * @returns
+     */
     async saveUser(userDto) {
         const user = new userModel(userDto);
         await user.save();
         return user;
     }
 
+    /**
+     * Funcion para obtener la lista del top N de criptomonedas de un usuario
+     * @param {*} user
+     * @param {*} nTop
+     * @param {*} order
+     * @returns
+     */
     async getTopCoins(user, nTop, order) {
         const infoUser = await this.getUser(user.user_name);
         if (infoUser.coins.length > 0) {

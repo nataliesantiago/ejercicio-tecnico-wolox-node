@@ -6,7 +6,6 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const dotenv = require('dotenv');
-const connection = require('./config/connection');
 const CheckToken = require('./middlewares/check-token');
 const authApi = require('./api/auth-api');
 const userApi = require('./api/user-api');
@@ -30,9 +29,9 @@ morgan.token('host', function(req, res) {
 });
 
 // define custom logging format
-morgan.token('detailed', function (req, res, param) {                                    
+morgan.token('detailed', function (req, res, param) {
     return JSON.stringify(req.body);
-});  
+});
 
 app.use((req, res, next) => {
     res.set('Cache-Control', 'no-store')
@@ -51,7 +50,4 @@ app.use('/api/coins', coinApi);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-});
+module.exports = app; // for testing

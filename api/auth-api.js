@@ -2,11 +2,14 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const UserController = require('./../controllers/user-controller');
 const secret = require('./../config/secret');
-const { mapErrors } = require('../utils/errorModel');
+const { mapErrors } = require('../utils/error-model');
 
 const route = express.Router();
 let userController = new UserController();
 
+/**
+ * Servicio para registrar un nuevo usuario
+ */
 route.post('/register', async (req, res) => {
     const userDto = req.body;
     try {
@@ -26,6 +29,9 @@ route.post('/register', async (req, res) => {
     }
 });
 
+/**
+ * Servicio para realizar inicio de sesion
+ */
 route.post('/login', async (req, res) => {
     let { user_name, password } = req.body;
     const user = await userController.getUser(user_name);

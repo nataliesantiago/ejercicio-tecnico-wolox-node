@@ -5,11 +5,23 @@ class CoinController {
 
     constructor() { }
 
+    /**
+     * Funcion para obtener la lista de criptomonedas disponisbels
+     * @param {*} currency
+     * @param {*} page
+     * @returns
+     */
     async getCoinsList(currency, page) {
         const coinsList = await externalServices.getCoinsList(currency, page);
         return coinsList;
     }
 
+    /**
+     * Funcion para guardar una criptomoneda a un usuario
+     * @param {*} userId
+     * @param {*} coinId
+     * @returns
+     */
     async saveCoinByUser(userId, coinId) {
         const coin = await externalServices.getCoin(coinId);
         if (coin !== null) {

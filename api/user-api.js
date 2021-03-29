@@ -4,6 +4,9 @@ const UserController = require('../controllers/user-controller');
 const route = express.Router();
 let userController = new UserController();
 
+/**
+ * Servicio para obtener la informacion de un usuario
+ */
 route.get('/user', async (req, res) => {
     try {
         const userName = req.query.user_name;
@@ -20,6 +23,9 @@ route.get('/user', async (req, res) => {
     }
 });
 
+/**
+ * Servicio para listar el top N de criptomonedas del usuario, se puede listar ascendente o descendente
+ */
 route.get('/list-top-coins', async (req, res) => {
     try {
         const user = req.user.user;

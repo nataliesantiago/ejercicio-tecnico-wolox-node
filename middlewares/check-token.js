@@ -3,12 +3,18 @@ const config = require('./../config/secret');
 
 class CheckToken {
 
+    /**
+     * Funcion para verificar si el token es valido o no
+     * @param {*} req
+     * @param {*} res
+     * @param {*} next
+     * @returns
+     */
     checkToken (req, res, next) {
-        let token = req.headers['x-access-token'] || req.headers['authorization']; // Express headers are auto converted to lowercase
+        let token = req.headers['x-access-token'] || req.headers['authorization'];
     
         if (token) {
             if (token.startsWith('Bearer ')) {
-                // Remove Bearer from string
                 token = token.slice(7, token.length);
             }
             jwt.verify(token, config.secret, (err, decoded) => {

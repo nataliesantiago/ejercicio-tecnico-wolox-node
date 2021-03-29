@@ -4,6 +4,9 @@ const CoinController = require('../controllers/coin-controller');
 const route = express.Router();
 let coinController = new CoinController();
 
+/**
+ * Servicio para listar las criptomonedas disponibles
+ */
 route.get('/coins-list', async (req, res) => {
     try {
         const user = req.user.user;
@@ -21,6 +24,9 @@ route.get('/coins-list', async (req, res) => {
     }
 });
 
+/**
+ * Servicio para agregar una criptomoneda a un usuario
+ */
 route.post('/add-coin', async (req, res) => {
     try {
         const user = req.user.user;
