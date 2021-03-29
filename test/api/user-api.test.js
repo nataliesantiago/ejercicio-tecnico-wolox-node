@@ -2,12 +2,12 @@ const request = require('supertest');
 const app = require('../../app');
 const mongoDB = require('../../config/connection');
 
-describe('api coins', () => {
+describe('api user', () => {
   let token = '';
 
   beforeAll(async () => {
     mongoDB.connect();
-    jest.setTimeout(10000);
+    jest.setTimeout(20000);
     request(app)
     const responseLogin = await request(app)
       .post('/api/auth/login')
@@ -24,20 +24,20 @@ describe('api coins', () => {
     mongoDB.disconnect(done);
   });
 
-  describe('get coins list', () => {
-    test('list coins', async () => {
+  describe('get list top N coins', () => {
+    test('list coins by user', async () => {
       const response = await request(app)
-        .get('/api/coins/coins-list')
+        .get('/api/users/list-top-coins')
         .set('Accept', 'application/json')
         .set('Authorization', 'Bearer ' + token)
         .query({
-          page: 1
+          top: 25
         })
       expect(response.statusCode).toBe(200);
     })
-    test('list coins without token', async () => {
+    test('list coins by user without token', async () => {
       const response = await request(app)
-        .get('/api/coins/coins-list')
+        .get('/api/users/list-top-coins')
         .set('Accept', 'application/json')
         .query({
           page: 1
@@ -46,16 +46,4 @@ describe('api coins', () => {
     })
   })
 
-  describe('add coin to user', () => {
-    test('add coin', async () => {
-      const response = await request(app)
-        .post('/api/coins/add-coin')
-        .set('Accept', 'application/json')
-        .set('Authorization', 'Bearer ' + token)
-        .send({
-          coin_id: 'revv'
-        })
-      expect(response.statusCode).toBe(200);
-    })
-  })
 });
