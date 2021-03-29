@@ -1,4 +1,4 @@
-# ejercicio tecnico NodeJS
+# Ejercicio técnico NodeJS
 
 ## Instalación
 
