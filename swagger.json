@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "WChallenge",
-        "description": "Cryptocurrencies Monitor",
+        "title": "WChallenge - Cryptocurrencies Monitor",
+        "description": "Documentación de los servicios para el monitoreo de criptomonedas, tener en cuenta que para consumir los servicios de Coins y Users es necesario agregar el token generado del servicio de Login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio, ejemplo: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVC. El token generado es válido por 30 minutos",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
@@ -18,11 +18,11 @@
         },
         {
             "name": "Coins",
-            "description": "Criptomonedas, tener en cuenta que para consumir estos servicio es necesario agregar el token generado del servicio de login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio"
+            "description": "Criptomonedas"
         },
         {
             "name": "Users",
-            "description": "Administrador de usuarios, ener en cuenta que para consumir estos servicio es necesario agregar el token generado del servicio de login, se debe agregar dando clic en el candado y adicionar la palara Bearer al inicio"
+            "description": "Usuarios"
         }
     ],
     "schemes": [
